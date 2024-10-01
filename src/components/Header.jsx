@@ -5,11 +5,9 @@
 function Header() {
     return (
 
-        <>
-            <div id="Header">
+            <header id="Header">
               <img id="Logo" src={ require("../pictures/logo.png") } alt="Balanced"/>
-            </div>
-        </>
+            </header>
 
     )
 }
