@@ -1,6 +1,6 @@
 // Imports
 import React from "react";
-
+import Header from "./Header.jsx"
 
 
 // The App function returns a "container" of components of the website
@@ -8,7 +8,7 @@ function App() {
     return (
 
         <>
-            <p>In progress...</p>
+            <Header />
         </>
 
     )
