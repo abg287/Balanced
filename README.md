@@ -28,5 +28,5 @@ command line.
 
 1. The .gitignore file ignores a very important foler, "node_modules", since it
 contains many files. To attain this folder, run `npm i` to get the folder.
-2. After getting the "node_modules" folder, run `npm run start` to start the 
+2. After getting the "node_modules" folder, run `npm run watch` to start the 
 local website.
