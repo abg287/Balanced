@@ -2,11 +2,19 @@
   "name": "Balanced",
   "version": "1.0.0",
   "main": "app.js",
+  "watch": {
+    "start": "app.js",
+    "build": [
+      "src/**/*.*",
+      "public/**/*.*"
+    ]
+  },
   "scripts": {
     "start": "npm run build && nodemon",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "watch": "npm-watch"
   },
   "keywords": [],
   "author": "",
@@ -17,6 +25,7 @@
     "express": "^4.21.0",
     "mongoose": "^8.6.2",
     "nodemon": "^3.1.4",
+    "npm-watch": "0.13.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-scripts": "^5.0.1"
