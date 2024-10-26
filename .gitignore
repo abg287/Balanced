@@ -31,11 +31,6 @@ yarn.lock
 
 
 
-# Ignore environment variables
-.env
-
-
-
 # Ignore IDE/editor config files
 .vscode/
 .idea/
