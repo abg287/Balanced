@@ -1,9 +1,10 @@
 // Imports
-import React from "react";
+import useFetch from '../hooks/useFetch.js';
 
 // Will return a "container" for the header of the website
 export default function Home() {
+    const data = useFetch('/api/home');
     return (
-            <h1>Home</h1>
+            <h1>{data}</h1>
     )
 }

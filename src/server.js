@@ -52,16 +52,16 @@
   // Add api routes
   const ApiRouter = express.Router();
   ApiRouter.get('/home', (req, res) => {
-    return res.json({message: 'Home page data from Express!'});
+    return res.json({message: 'Home Page'});
   });
   ApiRouter.get('/add-meals', (req, res) => {
-    return res.json({message: 'About page API data oh yeah!'});
+    return res.json({message: 'Add Meals Page'});
   });
   ApiRouter.get('/physical-data', (req, res) => {
-    return res.json({message: 'This is Express! Here are the contacts!'});
+    return res.json({message: 'Physical Data Page'});
   });
   ApiRouter.get('/recommendations', (req, res) => {
-    return res.json({message: 'This is Express! Here are the contacts!'});
+    return res.json({message: 'Recommendations Page'});
   });
   // ApiRouter.get('*', (req, res) => {
   //   return res.json({message: 'This is Express! Here are the contacts!'});
