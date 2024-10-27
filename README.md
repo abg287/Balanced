@@ -1,32 +1,105 @@
 # Balanced
 
-Balanced is a website meal plan tracker.
+One Paragraph of project description goes here
 
-## Contributors
+## Getting Started
 
-- Alonso Garcia
-- Carlos Martinez
-- Kristopher Thomas
-- Robert McClung
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
 
-## Starting Up Website
-
-There are some pre-requisites to start this website locally, which will be
-explained. After will be commands to run the actual website.
-
-### Pre-Requisites
+### Prerequisites
 
 - Install [node and npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm#checking-your-version-of-npm-and-nodejs) 
 to your computer.
-- Pull latest version of the remote repository main branch to your local
+- Pull the latest version of the remote repository main branch to your local
 repository branch.
-- Make sure you're doing the following commands in the root of the repository in
-command line.
 - More to be listed, if any...
 
-### Commands
+### Installing
 
-1. The .gitignore file ignores a very important foler, "node_modules", since it
-contains many files. To attain this folder, run `npm i` to get the folder.
-2. After getting the "node_modules" folder, run `npm run start` to start the 
+1. The .gitignore file ignores a very important folder, "node_modules", since it
+contains many files. To attain this folder, run
+
+~~~
+npm i
+~~~
+
+to get the folder.
+3. After getting the "node_modules" folder, run
+
+~~~
+npm start
+~~~
+
+to start the 
 local website.
+
+
+A step by step series of examples that tell you how to get a development env running
+
+Say what the step will be
+
+```
+Give the example
+```
+
+And repeat
+
+```
+until finished
+```
+
+End with an example of getting some data out of the system or using it for a little demo
+
+## Running the tests
+
+Explain how to run the automated tests for this system
+
+### Break down into end to end tests
+
+Explain what these tests test and why
+
+```
+Give an example
+```
+
+### And coding style tests
+
+Explain what these tests test and why
+
+```
+Give an example
+```
+
+## Deployment
+
+Add additional notes about how to deploy this on a live system
+
+## Built With
+
+* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
+* [Maven](https://maven.apache.org/) - Dependency Management
+* [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
+
+## Contributing
+
+Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
+
+## Versioning
+
+We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags). 
+
+## Authors
+
+* **Billie Thompson** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
+
+See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+
+## Acknowledgments
+
+* Hat tip to anyone whose code was used
+* Inspiration
+* etc
