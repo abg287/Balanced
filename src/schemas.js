@@ -18,3 +18,10 @@ export const foodsSchema = {
     calcium: Number,
     iron: Number
 };
+
+export const usersSchema = {
+    name: String,
+    password: String,
+    weight: Number,
+    height: Number
+}

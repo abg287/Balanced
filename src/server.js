@@ -6,7 +6,7 @@
   import webpackHotMiddleware from 'webpack-hot-middleware';
   import historyApiFallback from 'connect-history-api-fallback';
   import webpackDevMiddleware from 'webpack-dev-middleware';
-  import { Food } from "./models.js";
+  import { Food, User } from "./models.js";
   import mongoose from "mongoose";
   import bodyParser from "body-parser";
 
