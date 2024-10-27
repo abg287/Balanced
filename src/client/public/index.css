@@ -4,47 +4,90 @@
     box-sizing: border-box;
   }
   
-  html {
-    font-family: Arial, sans-serif;
-  }
+*:focus {
+  outline: 2px solid slateblue;
+  outline-offset: 2px;
+}
 
-  header {
+html {
+    font-family: Arial, sans-serif;
+    height: 100%;
+}
+
+body {
+  font-size: 1.125rem; /* 18px, usually */
+  line-height: 1.5; /* Unitless! 1.5x the font size */
+  height: 100%;
+  width: 100%;
+}
+
+#root {
+  display: grid;
+  grid-template-rows: 100px auto;
+  grid-template-columns: 200px auto;
+  grid-template-areas: 'header header'
+                       'navigator .';
+  width: 100%;
+  height: 100%;
+}
+
+header {
     background-color:green;
     width: 100%;
     height: 100px;
-  }
+    grid-area: header;
+    border-width: 1rem;
+}
 
-  .NavButton{
+.NavButton{
     font-size: large;
     padding: 25px;
-  }
+}
 
-  .Application{
+.Application{
     float: left;
     width: 1000px;
     height: 1000px;
-  }
+}
 
-  #Logo {
+#Logo {
     display: block;
     margin-right: auto;
     padding: 5px;
-  }
+}
 
-  nav {
+nav {
     background-color: darkgrey;
     float: left;
-    width: 300px;
+    width: 100%;
     height: 100%;
-  }
+    grid-area: navigator;
+}
 
-  #MainPage {
+#MainPage {
     background-color: rgb(210, 218, 214);
     position: relative;
     width: 100%;
     height: 1000px;
-  }
+}
 
-  #HomeApp{
+#HomeApp {
     text-align: center;
-  }
+}
+
+form {
+  max-width: 32rem; /* Or whatever width you prefer */
+  margin: auto;
+  height: 100%;
+  width: 100%;
+}
+
+input {
+  color: inherit;
+  border: 2px solid #666;
+  padding: .5rem;
+  font-size: 0.9rem;
+  background: inherit;
+  border-radius: .25rem;
+  width: 100%;
+}
