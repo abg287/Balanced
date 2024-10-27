@@ -6,10 +6,9 @@
   import webpackHotMiddleware from 'webpack-hot-middleware';
   import historyApiFallback from 'connect-history-api-fallback';
   import webpackDevMiddleware from 'webpack-dev-middleware';
-
-  // Require modules
-  // const bodyParser = require( "body-parser" );
-  // const mongoose = require( "mongoose" );
+  import { Food, User } from "./models.js";
+  import mongoose from "mongoose";
+  import bodyParser from "body-parser";
 
   // Create app
   const app = express();
@@ -19,10 +18,12 @@
   const PORT = process.env.SERVER_PORT;
 
   // Get URL and database
-  const url = "";
-  const database = "";
+  const url = "mongodb+srv://admin:pass@atlascluster.wzdy0ju.mongodb.net/";
+  const database = "BalancedDB";
 
- 
+  app.use( bodyParser.json() );
+  app.use( bodyParser.urlencoded( { extended: true } ) );
+  mongoose.connect( url + database );
 
   // Logging middleware
   app.use((req, res, next) => {
@@ -52,13 +53,17 @@
   // Add api routes
   const ApiRouter = express.Router();
   ApiRouter.get('/home', (req, res) => {
-    return res.json({message: 'Home Page'});
+
+    Food.find()
+    .then( foods => res.json( foods ) );
+
   });
-  ApiRouter.get('/add-meals', (req, res) => {
-    return res.json({message: 'Add Meals Page'});
+  ApiRouter.get('/add-food', (req, res) => {
+    return res.json({message: 'Add Food Page'});
   });
   ApiRouter.get('/physical-data', (req, res) => {
-    return res.json({message: 'Physical Data Page'});
+    User.find()
+    .then( users => res.json( users ) );
   });
   ApiRouter.get('/recommendations', (req, res) => {
     return res.json({message: 'Recommendations Page'});
@@ -68,13 +73,50 @@
   // });
   app.use('/api', ApiRouter);
 
-  // app.use( bodyParser.json() );
-  // app.use( bodyParser.urlencoded( { extended: true } ) );
-  // app.use( express.static( "build" ) );
-  // app.get('*', (req, res) => {
-  //   res.sendFile("index.html", {root: "build"});
-  // });
-  // mongoose.connect( url + database ); // Not created yet
+  
+  app.post( "/add-food", ( req, res ) => {
+    const { name, calories, totalFat, saturatedFat, polyunsaturatedFat, monounsaturatedFat, transFat, cholesterol, sodium, potassium, totalCarbs, dietaryFiber, sugars, protein, vitaminA, vitaminC, calcium, iron } = req.body;
+    const food = new Food({
+      name: name,
+      calories: calories,
+      totalFat: totalFat,
+      saturatedFat: saturatedFat,
+      polyunsaturatedFat: polyunsaturatedFat,
+      monounsaturatedFat: monounsaturatedFat,
+      transFat: transFat,
+      cholestorol: cholesterol,
+      sodium: sodium,
+      potassium: potassium,
+      totalCarbs: totalCarbs,
+      dietaryFiber: dietaryFiber,
+      sugars: sugars,
+      protein: protein,
+      vitaminA: vitaminA,
+      vitaminC: vitaminC,
+      calcium: calcium,
+      iron: iron
+    })
+
+    Food.findOne( { name: name } )
+      .then( ( foundFood ) => {
+        if ( !foundFood ) {
+          food.save();
+        }
+      })
+  });
+
+
+
+  app.post( "/physical-data", ( req, res ) => {
+    const { userName, height, weight } = req.body;
+
+    const filter = { userName: userName }
+
+    const update = { $set: { height: height, weight: weight } }
+
+    User.updateOne( filter, update )
+    .then( res => console.log( res ) );
+  });
 
 
   
