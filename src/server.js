@@ -119,10 +119,32 @@
   });
 
 
+  app.delete( "/food", ( req, res ) => {
+    const { name } = req.body;
+    console.log( name );
+
+    Food.findOneAndDelete( { name: name } )
+    .then( deletedFood => {
+      if ( deletedFood ) {
+        console.log( "Food was deleted successfully" );
+        res.status(200).json({ message: "Food deleted successfully", deletedFood });
+      }
+
+      else {
+        console.log( "Food was not deleted" );
+        res.status(404).json({ message: "Food item not found" });
+      }
+    })
+    .catch( err => {
+      console.log( err );
+      res.status(500).json({ message: "Error deleting food item" });
+    });
+  });
+
   
 // OTHER
 
     // Console listening to a port
-    app.listen(PORT, HOST, () => {
+    app.listen( PORT, HOST, () => {
       console.log(`Server started listening on ${HOST}:${PORT}`);
     });
