@@ -50,11 +50,12 @@ export default function Home() {
     }  
     
     return (
-            <div className = "page foods">
-                <h1>Foods Eaten</h1>
+            <div id = "HomeApp">
+                <p id = "HomeFoodsEaten">Foods Eaten</p>
+                <p id = "HomeCaloriesCount">Total Calories: { caloriesSum }</p>
                 { foods?.map( ( food, index ) => {
                     return (
-                        <Food 
+                        <Food
                             key = { index }
                             index = { index }
                             name = { food.name }
@@ -63,7 +64,6 @@ export default function Home() {
                         />
                     );
                 })}
-                <p>Total Calories: { caloriesSum }</p>
             </div>
     );
 }
