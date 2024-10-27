@@ -1,0 +1,77 @@
+/* Universal Reset */
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+*:focus {
+  outline: 2px solid slateblue;
+  outline-offset: 2px;
+}
+
+/* Base Styling */
+html, body {
+  font-family: Arial, sans-serif;
+  height: 100%;
+  width: 100%;
+  font-size: 1.125rem; /* 18px */
+  line-height: 1.5;
+}
+
+/* Layout */
+#root {
+  display: grid;
+  grid-template-rows: 100px auto;
+  grid-template-columns: 200px auto;
+  grid-template-areas: 
+    'header header'
+    'navigator .';
+  height: 100%;
+  width: 100%;
+}
+
+/* Header Section */
+header {
+  background-color: green;
+  height: 100px;
+  grid-area: header;
+  padding: 1rem;
+}
+
+/* Navigation */
+nav {
+  background-color: darkgrey;
+  grid-area: navigator;
+  height: 100%;
+}
+
+/* Form Styling */
+form {
+  max-width: 32rem;
+  margin: auto;
+  width: 100%;
+  padding: 2rem;
+}
+
+input {
+  width: 100%;
+  border: 2px solid #666;
+  padding: 0.5rem;
+  font-size: 0.9rem;
+  border-radius: 0.25rem;
+  background-color: inherit;
+  margin-bottom: 1rem;
+}
+
+/* Submit Button */
+input[type="submit"] {
+  background-color: #4caf50;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+input[type="submit"]:hover {
+  background-color: #45a049;
+}
