@@ -57,13 +57,13 @@
     Food.find()
     .then( foods => res.json( foods ) );
 
-    // return res.json({message: 'Home Page'});
   });
   ApiRouter.get('/add-food', (req, res) => {
     return res.json({message: 'Add Food Page'});
   });
   ApiRouter.get('/physical-data', (req, res) => {
-    return res.json({message: 'Physical Data Page'});
+    User.find()
+    .then( users => res.json( users ) );
   });
   ApiRouter.get('/recommendations', (req, res) => {
     return res.json({message: 'Recommendations Page'});
@@ -74,7 +74,7 @@
   app.use('/api', ApiRouter);
 
   
-  app.post( "/submit", ( req, res ) => {
+  app.post( "/add-food", ( req, res ) => {
     const { name, calories, totalFat, saturatedFat, polyunsaturatedFat, monounsaturatedFat, transFat, cholesterol, sodium, potassium, totalCarbs, dietaryFiber, sugars, protein, vitaminA, vitaminC, calcium, iron } = req.body;
     const food = new Food({
       name: name,
@@ -97,14 +97,27 @@
       iron: iron
     })
 
-    Food
-      .findOne( { name: name } )
+    Food.findOne( { name: name } )
       .then( ( foundFood ) => {
         if ( !foundFood ) {
           food.save();
         }
       })
   });
+
+
+
+  app.post( "/physical-data", ( req, res ) => {
+    const { userName, height, weight } = req.body;
+
+    const filter = { userName: userName }
+
+    const update = { $set: { height: height, weight: weight } }
+
+    User.updateOne( filter, update )
+    .then( res => console.log( res ) );
+  });
+
 
   
 // OTHER

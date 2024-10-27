@@ -6,7 +6,6 @@ import axios from "axios";
 
 // Will return a "container" for the header of the website
 export default function AddFood() {
-  const data = useFetch('/api/add-meals');
   const [ isExpanded, setExpanded ] = useState( false );
 
   const [ food, setFood ] = useState({
@@ -59,10 +58,6 @@ export default function AddFood() {
   const foodFactsValid = food => {
     let isValid = true;
     Object.keys( food ).forEach( ( fact ) => {
-      console.log( fact == "name" && isEmpty( food[ fact ] ) );
-      console.log( !isPositive( food[ fact ] ) );
-      console.log( "------------------" );
-      
 
       if ( fact === "name" && isEmpty( food[ fact ] ) )
       {
@@ -77,7 +72,6 @@ export default function AddFood() {
         isValid = false;
       }
     });
-    console.log( "===================" );
     return isValid;
   }
 
@@ -99,15 +93,13 @@ export default function AddFood() {
         }
       });
 
-      fetch( 'http://localhost:8080/submit', {
+      fetch( 'http://localhost:8080/add-food', {
         method: "POST",
         headers: { "Content-type": "application/json" },
         body: JSON.stringify( food )
       })
       .then( res => res.json() )
       .then( data => setFood( prevFood => { return { ...prevFood, data } } ) );
-
-      // axios.post( "/submit", food )
 
       setFood( prevFood => {
         return {
