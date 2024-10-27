@@ -13,7 +13,7 @@ export default function Food( props ) {
 
     return (
 
-            <div className = "food">
+            <div id = "HomeFoodItem">
               <h1>{ props.name }</h1>
               <p>{ props.calories }</p>
               <button onClick = { handleClick }>Delete</button>

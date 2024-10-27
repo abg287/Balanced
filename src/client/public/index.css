@@ -71,9 +71,39 @@ nav {
     height: 1000px;
 }
 
+/* Home.jsx CSS identifiers */
+
 #HomeApp {
     text-align: center;
 }
+
+#HomeCaloriesCount {
+    font-size: x-large;
+    background-color: gray;
+    border: 1px solid black;
+    margin:auto;
+    width: 50%;
+}
+
+#HomeFoodsEaten {
+    margin: auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-size: 70px;
+    font-weight: bold;
+}
+
+#HomeFoodItem {
+    font-size: x-large;
+    background-color: gainsboro;
+    border: 1px solid black;
+    margin: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 70%;
+}
+
+
 
 form {
   max-width: 32rem; /* Or whatever width you prefer */
