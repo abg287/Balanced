@@ -53,7 +53,11 @@
   // Add api routes
   const ApiRouter = express.Router();
   ApiRouter.get('/home', (req, res) => {
-    return res.json({message: 'Home Page'});
+
+    Food.find()
+    .then( foods => res.json( foods ) );
+
+    // return res.json({message: 'Home Page'});
   });
   ApiRouter.get('/add-food', (req, res) => {
     return res.json({message: 'Add Food Page'});

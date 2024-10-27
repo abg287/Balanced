@@ -99,7 +99,15 @@ export default function AddFood() {
         }
       });
 
-      axios.post( "/submit", food )
+      fetch( 'http://localhost:8080/submit', {
+        method: "POST",
+        headers: { "Content-type": "application/json" },
+        body: JSON.stringify( food )
+      })
+      .then( res => res.json() )
+      .then( data => setFood( prevFood => { return { ...prevFood, data } } ) );
+
+      // axios.post( "/submit", food )
 
       setFood( prevFood => {
         return {
