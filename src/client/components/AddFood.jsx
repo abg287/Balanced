@@ -1,7 +1,5 @@
 // Imports
 import {useState, useEffect} from 'react';
-import useFetch from '../hooks/useFetch.js';
-import axios from "axios";
 
 
 // Will return a "container" for the header of the website
