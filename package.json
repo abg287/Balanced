@@ -4,7 +4,8 @@
   "main": "./src/server.js",
   "type": "module",
   "scripts": {
-    "start": "nodemon --env-file .env .",
+    "start": "node server.js",
+    "dev": "nodemon --env-file .env .",
     "test": "jest"
   },
   "keywords": [],
