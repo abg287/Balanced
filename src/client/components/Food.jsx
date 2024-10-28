@@ -13,9 +13,14 @@ export default function Food( props ) {
 
     return (
 
-            <div id = "HomeFoodItem">
-              <h1>{ props.name }</h1>
-              <p>{ props.calories }</p>
+            <div id ="FoodItem">
+              <p id ="FoodName">{ props.name }</p>
+              <p id ="FoodCalories">{ props.calories } Calories</p>
+              <p className="FoodNutrients">Total Fat: { props.totalFat } grams</p>
+              <p className="FoodNutrients">Total Carbs: { props.totalCarbs } grams</p>
+              <p className="FoodNutrients">Protein: { props.protein } grams</p>
+              <p className="FoodNutrients">Sugars: { props.sugars } grams</p>
+
               <button onClick = { handleClick }>Delete</button>
             </div>
 
