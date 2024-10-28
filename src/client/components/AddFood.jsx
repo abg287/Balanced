@@ -1,5 +1,5 @@
 // Imports
-import {useState, useEffect} from 'react';
+import React, {useState, useEffect} from 'react';
 
 
 // Will return a "container" for the header of the website
@@ -14,7 +14,7 @@ export default function AddFood() {
     polyunsaturatedFat: "",
     monounsaturatedFat: "",
     transFat: "",
-    cholestorol: "",
+    cholesterol: "",
     sodium: "",
     potassium: "",
     totalCarbs: "",
@@ -127,7 +127,7 @@ export default function AddFood() {
     // Else
     else {
       // Alert user to enter required fields
-      alert( "Please correctly enter required fields" );
+      window.alert( "Please correctly enter required fields" );
     }
   }
 
@@ -135,7 +135,7 @@ export default function AddFood() {
     <div className="page add-meal">
       <h1>Add Food</h1>
       <form>
-        <label for="name">Name</label>
+        <label htmlFor="name">Name</label>
         <input
           id="name"
           name="name"
@@ -145,7 +145,7 @@ export default function AddFood() {
           required
         />
 
-        <label for="calories">Calories</label>
+        <label htmlFor="calories">Calories</label>
         <input
           id="calories"
           name="calories"
@@ -155,13 +155,16 @@ export default function AddFood() {
           required
         />
 
+
+        <label htmlFor="expand">Expand additional fields</label>
         <input
+          id="expand"
           name="expand"
           type="checkbox"
           onChange={changeExpand}
         />
 
-        {isExpanded && ( <label for="total-fat">Total Fat (g)</label> ) }
+        {isExpanded && ( <label htmlFor="total-fat">Total Fat (g)</label> ) }
         {isExpanded && (
         <input
           id="total-fat"
@@ -249,7 +252,7 @@ export default function AddFood() {
         />
         )}
 */}
-        {isExpanded && ( <label for="total-carbs">Total Carbs (g)</label> ) }     
+        {isExpanded && ( <label htmlFor="total-carbs">Total Carbs (g)</label> ) }     
         {isExpanded && (
         <input
           id="total-carbs"
@@ -271,7 +274,7 @@ export default function AddFood() {
         />
         )}
 */}
-        {isExpanded && ( <label for="sugars">Sugars (g)</label> ) }
+        {isExpanded && ( <label htmlFor="sugars">Sugars (g)</label> ) }
         {isExpanded && (
         <input
           id="sugars"
@@ -282,7 +285,7 @@ export default function AddFood() {
         />
         )}
 
-        {isExpanded && ( <label for="protein">Protein (g)</label> ) }
+        {isExpanded && ( <label htmlFor="protein">Protein (g)</label> ) }
         {isExpanded && (
         <input
           id="protein"

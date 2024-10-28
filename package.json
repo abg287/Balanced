@@ -4,7 +4,8 @@
   "main": "./src/server.js",
   "type": "module",
   "scripts": {
-    "start": "nodemon --env-file .env ."
+    "start": "nodemon --env-file .env .",
+    "test": "jest"
   },
   "keywords": [],
   "author": "",
@@ -26,13 +27,20 @@
   "devDependencies": {
     "@babel/preset-env": "^7.26.0",
     "@babel/preset-react": "^7.25.9",
+    "@testing-library/jest-dom": "^6.6.2",
+    "@testing-library/react": "^16.0.1",
+    "babel-jest": "^29.7.0",
     "babel-loader": "^9.2.1",
     "connect-history-api-fallback": "^2.0.0",
     "html-webpack-plugin": "^5.6.3",
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0",
+    "jsdom": "^25.0.1",
     "nodemon": "^3.1.7",
     "webpack": "^5.95.0",
     "webpack-cli": "^5.1.4",
     "webpack-dev-middleware": "^7.4.2",
-    "webpack-hot-middleware": "^2.26.1"
+    "webpack-hot-middleware": "^2.26.1",
+    "whatwg-fetch": "^3.6.20"
   }
 }
