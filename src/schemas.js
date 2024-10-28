@@ -22,6 +22,9 @@ export const foodsSchema = {
 export const usersSchema = {
     userName: String,
     password: String,
+    age: Number,
+    gender: String,
+    activityLevel: String,
     weight: Number,
     height: Number
 }
