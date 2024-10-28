@@ -71,6 +71,8 @@ Please read [CONTRIBUTING.md](./CONTRIBUTING.md) for details on our code of cond
 
 We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/abg287/Balanced/tags). 
 
+Current version in v1.0.0
+
 ## Authors
 
 * **Alonso The Dopest** - [abg287](https://github.com/abg287)
