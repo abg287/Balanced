@@ -151,3 +151,11 @@ input[type="submit"] {
 input[type="submit"]:hover {
   background-color: darkslateblue;
 }
+
+.physical-data {
+  display: flex;
+  flex-direction: column;
+  justify-content: baseline;
+  align-items: center;
+  gap: 4px;
+}

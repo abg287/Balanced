@@ -6,7 +6,7 @@ import useFetch from "../hooks/useFetch.js";
 export default function PhysicalData() {
 
   const users = useFetch( "/api/physical-data" );
-  const [ isUpdating, setIsUpdating ] = useState( false );
+  const [ checked, setChecked ] = useState( false );
   const [ currentUser, setCurrentUser ] = useState( {} );
 
   useEffect(() => {
@@ -16,8 +16,8 @@ export default function PhysicalData() {
     }
   }, [ users ] );
 
-  const changeIsUpdating = () => {
-    setIsUpdating( !isUpdating );
+  const changeChecked = () => {
+    setChecked( !checked );
   }
 
   const isPositive = number => {
@@ -48,7 +48,7 @@ export default function PhysicalData() {
       .then( res => res.json() )
       .then( data => setFood( prevCurrentUser => { return { ...prevCurrentUser, data } } ) );
 
-      changeIsUpdating();
+      changeChecked();
     }
 
     // Else
@@ -67,8 +67,8 @@ export default function PhysicalData() {
   }
 
   return (
-      <div>
-          { isUpdating ? ( 
+      <div className = "page physical-data">
+          { checked ? ( 
             <>
               <h1>Update your physical metrics, { currentUser.username }</h1>
               <label for = "weight">Weight (lb)</label>
@@ -94,16 +94,26 @@ export default function PhysicalData() {
                 type="submit"
                 onClick = { handleSubmit }
               />
+              <label for = "update">Press to cancel update:</label>
+            <input
+                id = "update"
+                type="checkbox"
+                checked = { checked }
+                onClick={ changeChecked }
+            />
             </>
           ):(
           <>
             <h1>Here are your physical metrics, { currentUser.userName }</h1>
             <p>Weight (lb): { currentUser.weight }</p>
             <p>Height (in): { currentUser.height }</p>
+            <label for = "update">Press to update info:</label>
             <input
+                id = "update"
                 type="checkbox"
-                onClick={ changeIsUpdating }
-              />
+                checked = { checked }
+                onClick={ changeChecked }
+            />
           </>
           )}
       </div>
