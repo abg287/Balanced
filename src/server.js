@@ -108,11 +108,11 @@
 
 
   app.post( "/physical-data", ( req, res ) => {
-    const { userName, height, weight } = req.body;
+    const { userName, height, weight, age, gender, activityLevel } = req.body;
 
     const filter = { userName: userName }
 
-    const update = { $set: { height: height, weight: weight } }
+    const update = { $set: { height: height, weight: weight, age: age, gender: gender, activityLevel: activityLevel } }
 
     User.updateOne( filter, update )
     .then( res => console.log( res ) );
