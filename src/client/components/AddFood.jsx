@@ -171,7 +171,7 @@ export default function AddFood() {
           onChange={ handleChange }
         />
         )}
-
+{/* 
         {isExpanded && ( <label for="saturated-fat">Saturated Fat (g)</label> ) }
         {isExpanded && (
         <input
@@ -182,7 +182,7 @@ export default function AddFood() {
           onChange={ handleChange }
         />
         )}
-
+ 
         {isExpanded && ( <label for="polyunsaturated-fat">Polyunsaturated Fat (g)</label> ) }
         {isExpanded && (
         <input
@@ -248,7 +248,7 @@ export default function AddFood() {
           onChange={ handleChange }
         />
         )}
-
+*/}
         {isExpanded && ( <label for="total-carbs">Total Carbs (g)</label> ) }     
         {isExpanded && (
         <input
@@ -259,7 +259,7 @@ export default function AddFood() {
           onChange={ handleChange }
         />
         )}
-
+{/*  
         {isExpanded && ( <label for="dietary-fiber">Dietary Fiber (g)</label> ) }
         {isExpanded && (
         <input
@@ -270,7 +270,7 @@ export default function AddFood() {
           onChange={ handleChange }
         />
         )}
-
+*/}
         {isExpanded && ( <label for="sugars">Sugars (g)</label> ) }
         {isExpanded && (
         <input
@@ -292,7 +292,7 @@ export default function AddFood() {
           onChange={ handleChange }
         />
         )}
-
+{/*  
         {isExpanded && ( <label for="vitamin-a">Vitamin A (%)</label> ) }
         {isExpanded && (
         <input
@@ -336,6 +336,7 @@ export default function AddFood() {
           onChange={ handleChange }
         />
         )}
+*/}
 
         <input
           type="submit"

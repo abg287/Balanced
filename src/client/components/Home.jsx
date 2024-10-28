@@ -60,6 +60,10 @@ export default function Home() {
                             index = { index }
                             name = { food.name }
                             calories = { food.calories }
+                            totalFat = { food.totalFat }
+                            totalCarbs = { food.totalCarbs }
+                            protein = { food.protein }
+                            sugars = { food.sugars }
                             deleteFood = { deleteFood }
                         />
                     );
