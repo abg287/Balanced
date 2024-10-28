@@ -75,8 +75,8 @@ We use [SemVer](http://semver.org/) for versioning. For the versions available, 
 
 * **Alonso The Dopest** - *Initial work* - [abg287](https://github.com/abg287)
 * **Bob** - *Designed Interface, Wrote CSS, Implemented Meal Nutrional Data* - [Bobaliciousss](https://github.com/Bobaliciousss)
-* **Kris** - *Initial Work* - [gitstopher](https://github.com/gitstopher)
-* **Carlos** - *Initial Work* - [CarlosMartinezGil](https://github.com/CarlosMartinezGil)
+* **Kris** - *Initial work* - [gitstopher](https://github.com/gitstopher)
+* **Carlos** - *Prepared the database* - [CarlosMartinezGil](https://github.com/CarlosMartinezGil)
 
 See also the list of [contributors](https://github.com/abg287/Balanced/graphs/contributors) who participated in this project.
 
