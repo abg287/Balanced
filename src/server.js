@@ -14,8 +14,8 @@
   const app = express();
 
   // Get port
-  const HOST = process.env.SERVER_HOST | "localhost";
-  const PORT = process.env.SERVER_PORT | "8080";
+  const HOST = process.env.SERVER_HOST || "localhost";
+  const PORT = process.env.SERVER_PORT || "8080";
 
   // Get URL and database
   const url = "mongodb+srv://admin:pass@atlascluster.wzdy0ju.mongodb.net/";
