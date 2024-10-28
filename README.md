@@ -62,8 +62,3 @@ See also the list of [contributors](https://github.com/abg287/Balanced/graphs/co
 
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE) file for details
 
-## Acknowledgments
-
-* Hat tip to anyone whose code was used
-* Inspiration
-* etc
