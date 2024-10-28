@@ -86,16 +86,16 @@ Please read [CONTRIBUTING.md](./CONTRIBUTING.md) for details on our code of cond
 
 ## Versioning
 
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags). 
+We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/abg287/Balanced/tags). 
 
 ## Authors
 
-* **Alonso Garcia** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
-* **Robert McClung** -
-* **Kristopher Thomas** -
-* **Carlos Garcia** -
+* **Alonso The Dopest** - *Initial work* - [abg287](https://github.com/abg287)
+* **Bob** - *Initial Work* - [Bobaliciousss](https://github.com/Bobaliciousss)
+* **Kris** - *Initial Work* - [gitstopher](https://github.com/gitstopher)
+* **Carlos** - *Initial Work* - [CarlosMartinezGil](https://github.com/CarlosMartinezGil)
 
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
+See also the list of [contributors](https://github.com/abg287/Balanced/graphs/contributors) who participated in this project.
 
 ## License
 
