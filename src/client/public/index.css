@@ -93,17 +93,28 @@ nav {
     font-weight: bold;
 }
 
-#HomeFoodItem {
-    font-size: x-large;
-    background-color: gainsboro;
-    border: 1px solid black;
-    margin: auto;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    width: 70%;
+/* Food.jsx CSS identifiers */
+
+#FoodItem {
+  background-color: gainsboro;
+  border: 1px solid black;
+  margin: auto;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  width: 70%;
 }
 
+#FoodName{
+  font-size: xx-large;
+}
 
+#FoodCalories{
+  font-size: x-large;
+}
+
+.FoodNutrients {
+  font-size: small;
+}
 
 form {
   max-width: 32rem; /* Or whatever width you prefer */
