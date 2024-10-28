@@ -74,7 +74,7 @@ We use [SemVer](http://semver.org/) for versioning. For the versions available, 
 ## Authors
 
 * **Alonso The Dopest** - *Initial work* - [abg287](https://github.com/abg287)
-* **Bob** - *Initial Work* - [Bobaliciousss](https://github.com/Bobaliciousss)
+* **Bob** - *Designed Interface, Wrote CSS, Implemented Meal Nutrional Data* - [Bobaliciousss](https://github.com/Bobaliciousss)
 * **Kris** - *Initial Work* - [gitstopher](https://github.com/gitstopher)
 * **Carlos** - *Initial Work* - [CarlosMartinezGil](https://github.com/CarlosMartinezGil)
 
