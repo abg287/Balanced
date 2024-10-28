@@ -1,5 +1,5 @@
 // Imports
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import useFetch from "../hooks/useFetch.js";
 
 // Will return a "container" for the header of the website
@@ -77,7 +77,7 @@ export default function PhysicalData() {
         body: JSON.stringify( currentUser )
       })
       .then( res => res.json() )
-      .then( data => setFood( prevCurrentUser => { return { ...prevCurrentUser, data } } ) );
+      .then( data => setCurrentUser( prevCurrentUser => { return { ...prevCurrentUser, data } } ) );
 
       changeChecked();
     }
@@ -85,7 +85,7 @@ export default function PhysicalData() {
     // Else
     else {
       // Alert user to enter required fields
-      alert( "Please correctly enter required fields" );
+     window.alert( "Please correctly enter required fields" );
     }
 
     console.log( currentUser );
@@ -105,7 +105,7 @@ export default function PhysicalData() {
           <>
               <h1>Update your physical metrics, { currentUser.userName }</h1>
 
-              <label for = "age">Age (years)</label>
+              <label htmlFor = "age">Age (years)</label>
               <input 
                 id="age"
                 name="age"
@@ -116,32 +116,32 @@ export default function PhysicalData() {
               />
 
               <label>Gender:</label>
-              <label for="male">Male</label>    
+              <label htmlFor="male">Male</label>    
               <input type="radio" onChange={ handleChange } id="male" name="gender" value="M" checked={ currentUser.gender === "M" }></input>
               
               
-              <label for="female">Female</label>
+              <label htmlFor="female">Female</label>
               <input type="radio" onChange={ handleChange } id="female" name="gender" value="F" checked={ currentUser.gender === "F" }></input>
 
               <label>Activity Level:</label>
-              <label for="0">0 (Sedentary activity, such as little or no exercise or a desk job)</label>    
+              <label htmlFor="0">0 (Sedentary activity, such as little or no exercise or a desk job)</label>    
               <input type="radio" onChange={ handleChange } id="0" name="activityLevel" value={0} checked={ currentUser.activityLevel == "0" }></input>
               
               
-              <label for="1">1 (Light activity, such as exercise 1–3 days per week)</label>
+              <label htmlFor="1">1 (Light activity, such as exercise 1–3 days per week)</label>
               <input type="radio" onChange={ handleChange } id="1" name="activityLevel" value={1} checked={ currentUser.activityLevel == "1" }></input>
 
-              <label for="2">2 (Moderate activity, such as exercise 3–5 days per week)</label>    
+              <label htmlFor="2">2 (Moderate activity, such as exercise 3–5 days per week)</label>    
               <input type="radio" onChange={ handleChange } id="2" name="activityLevel" value={2} checked={ currentUser.activityLevel == "2" }></input>
               
               
-              <label for="3">3 (Active activity, such as exercise 6–7 days per week)</label>
+              <label htmlFor="3">3 (Active activity, such as exercise 6–7 days per week)</label>
               <input type="radio" onChange={ handleChange } id="3" name="activityLevel" value={3} checked={ currentUser.activityLevel == "3" }></input>
 
-              <label for="4">4 (Very active activity, such as hard exercise 6–7 days per week or a physical job)</label>    
+              <label htmlFor="4">4 (Very active activity, such as hard exercise 6–7 days per week or a physical job)</label>    
               <input type="radio" onChange={ handleChange } id="4" name="activityLevel" value={4} checked={ currentUser.activityLevel == "4" }></input>
 
-              <label for = "weight">Weight (lb)</label>
+              <label htmlFor = "weight">Weight (lb)</label>
               <input 
                 id="weight"
                 name="weight"
@@ -151,7 +151,7 @@ export default function PhysicalData() {
                 required  
               />
 
-              <label for = "height">Height (in)</label>
+              <label htmlFor = "height">Height (in)</label>
               <input 
                 id="height"
                 name="height"
@@ -164,7 +164,7 @@ export default function PhysicalData() {
                 type="submit"
                 onClick = { handleSubmit }
               />
-              <label for = "update">Press to cancel update:</label>
+              <label htmlFor = "update">Press to cancel update:</label>
               <input
                 id = "update"
                 type="checkbox"
@@ -178,7 +178,7 @@ export default function PhysicalData() {
             <p>Weight (lb): { currentUser.weight }</p>
             <p>Height (in): { currentUser.height }</p>
             <p>Caloric Intake: { calculateCalories( currentUser ) }</p>
-            <label for = "update">Press to update info:</label>
+            <label htmlFor = "update">Press to update info:</label>
             <input
                 id = "update"
                 type="checkbox"
