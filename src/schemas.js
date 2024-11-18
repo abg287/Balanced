@@ -16,7 +16,15 @@ export const foodsSchema = {
     vitaminA: Number,
     vitaminC: Number,
     calcium: Number,
-    iron: Number
+    iron: Number,
+    reviews: [
+        {
+            userName: String,
+            rating: Number, // Calificación de la comida
+            comment: String, // Comentario del usuario
+            createdAt: { type: Date, default: Date.now } // Fecha de la reseña
+        }
+    ]
 };
 
 export const usersSchema = {
@@ -27,4 +35,4 @@ export const usersSchema = {
     activityLevel: String,
     weight: Number,
     height: Number
-}
+};
