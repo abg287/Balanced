@@ -2,7 +2,7 @@ import requests
 import random
 
 # Base URL of the API for meal options
-API_URL = "https://fdc.nal.usda.gov/"  # Replace with your actual API endpoint
+API_URL = "https://fdc.nal.usda.gov/food-search?type=Survey%20(FNDDS)&query="  # Replace with your actual API endpoint
 API_KEY = "u1AT3AVGg51R8TweNHSRbfdJbTv5naw9TCofrA7l"  # Replace with your actual API key if needed
 
 # Function to fetch meals from the API for a specific meal type
