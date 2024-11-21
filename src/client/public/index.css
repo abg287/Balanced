@@ -169,4 +169,193 @@ input[type="submit"]:hover {
   justify-content: baseline;
   align-items: center;
   gap: 4px;
+}/* General Reset */
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+*:focus {
+  outline: 2px solid slateblue;
+  outline-offset: 2px;
+}
+
+/* Global Styles */
+html {
+  font-family: Arial, sans-serif;
+  height: 100%;
+}
+
+body {
+  font-size: 1.125rem; /* Default font size */
+  line-height: 1.5;
+  height: 100%;
+  width: 100%;
+}
+
+/* Root Layout */
+#root {
+  display: grid;
+  grid-template-rows: 100px auto;
+  grid-template-columns: 200px auto;
+  grid-template-areas: 
+    "header header"
+    "navigator main";
+  width: 100%;
+  height: 100%;
+}
+
+/* Header */
+header {
+  background-color: green;
+  grid-area: header;
+  border-bottom: 4px solid darkgreen;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1rem;
+  color: white;
+  font-size: 1.5rem;
+}
+
+/* Navigation */
+nav {
+  background-color: darkgrey;
+  grid-area: navigator;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+}
+
+.NavButton {
+  font-size: 1rem;
+  padding: 10px 15px;
+  margin: 0.5rem 0;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.NavButton:hover {
+  background-color: slateblue;
+  color: white;
+  border-color: slateblue;
+}
+
+/* Main Page */
+#MainPage {
+  background-color: rgb(210, 218, 214);
+  grid-area: main;
+  padding: 1rem;
+}
+
+/* Logo */
+#Logo {
+  display: block;
+  margin: 0 auto;
+  padding: 5px;
+  max-height: 50px;
+}
+
+/* Home Component */
+#HomeApp {
+  text-align: center;
+}
+
+#HomeCaloriesCount {
+  font-size: 1.25rem;
+  background-color: gray;
+  border: 1px solid black;
+  margin: 1rem auto;
+  padding: 1rem;
+  border-radius: 4px;
+  width: 50%;
+}
+
+#HomeFoodsEaten {
+  margin: 1rem auto;
+  font-size: 2rem;
+  font-weight: bold;
+  text-align: center;
+}
+
+/* Food Component */
+#FoodItem {
+  background-color: gainsboro;
+  border: 1px solid black;
+  margin: 1rem auto;
+  padding: 1rem;
+  border-radius: 4px;
+  width: 70%;
+}
+
+#FoodName {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+#FoodCalories {
+  font-size: 1.25rem;
+  margin-top: 0.5rem;
+}
+
+.FoodNutrients {
+  font-size: 0.9rem;
+  color: #555;
+  margin-top: 0.5rem;
+}
+
+/* Form Styles */
+form {
+  max-width: 32rem;
+  margin: 2rem auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  color: slateblue;
+}
+
+label {
+  font-weight: bold;
+  color: #333;
+}
+
+input {
+  color: #333;
+  border: 2px solid #666;
+  padding: 0.5rem;
+  font-size: 0.9rem;
+  background: white;
+  border-radius: 4px;
+  width: 100%;
+}
+
+input[type="submit"] {
+  padding: 0.75rem;
+  background-color: slateblue;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+input[type="submit"]:hover {
+  background-color: darkslateblue;
+}
+
+.physical-data {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
 }
