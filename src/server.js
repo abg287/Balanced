@@ -36,23 +36,50 @@ app.use((req, res, next) => {
 
 const compiler = webpack(webpackConfig);
 
-app.use(historyApiFallback({
-  verbose: true,
-  rewrites: [
-    {
-      from: /^\/api\/.*$/,
-      to: (context) => context.parsedUrl.path
-    }
-  ]
-}));
+// ---- BACKEND ROUTES ----
+// Estas rutas deben estar antes de `historyApiFallback`
+app.get('/food/:name', (req, res) => {
+  const foodName = req.params.name;
 
-app.use(webpackDevMiddleware(compiler, {
-  publicPath: webpackConfig.output.publicPath
-}));
+  Food.findOne({ name: foodName })
+    .then(food => {
+      if (!food) {
+        return res.status(404).json({ message: "Food not found" });
+      }
+      res.status(200).json(food); // Devuelve el alimento con sus reseñas
+    })
+    .catch(err => res.status(500).json({ message: "Error fetching food", error: err }));
+});
 
-app.use(webpackHotMiddleware(compiler, {}));
+app.post('/add-review', (req, res) => {
+  const { foodName, userName, rating, comment } = req.body;
 
-// Add api routes
+  if (!foodName || !userName || !rating) {
+    return res.status(400).json({ message: "Missing required fields" });
+  }
+
+  Food.findOne({ name: foodName })
+    .then(food => {
+      if (!food) {
+        return res.status(404).json({ message: "Food not found" });
+      }
+
+      const newReview = {
+        userName,
+        rating,
+        comment
+      };
+
+      food.reviews.push(newReview);
+
+      food.save()
+        .then(updatedFood => res.status(200).json({ message: "Review added successfully", food: updatedFood }))
+        .catch(err => res.status(500).json({ message: "Error saving review", error: err }));
+    })
+    .catch(err => res.status(500).json({ message: "Error finding food", error: err }));
+});
+
+// Otros endpoints de tu API...
 const ApiRouter = express.Router();
 ApiRouter.get('/home', (req, res) => {
   Food.find()
@@ -74,115 +101,24 @@ ApiRouter.get('/recommendations', (req, res) => {
 
 app.use('/api', ApiRouter);
 
-app.post("/add-food", (req, res) => {
-  const { name, calories, totalFat, saturatedFat, polyunsaturatedFat, monounsaturatedFat, transFat, cholesterol, sodium, potassium, totalCarbs, dietaryFiber, sugars, protein, vitaminA, vitaminC, calcium, iron } = req.body;
-  const food = new Food({
-    name: name,
-    calories: calories,
-    totalFat: totalFat,
-    saturatedFat: saturatedFat,
-    polyunsaturatedFat: polyunsaturatedFat,
-    monounsaturatedFat: monounsaturatedFat,
-    transFat: transFat,
-    cholestorol: cholesterol,
-    sodium: sodium,
-    potassium: potassium,
-    totalCarbs: totalCarbs,
-    dietaryFiber: dietaryFiber,
-    sugars: sugars,
-    protein: protein,
-    vitaminA: vitaminA,
-    vitaminC: vitaminC,
-    calcium: calcium,
-    iron: iron
-  });
+// ---- FRONTEND MIDDLEWARES ----
+// Estos middlewares deben estar al final
+app.use(historyApiFallback({
+  verbose: true,
+  rewrites: [
+    {
+      from: /^\/api\/.*$/,
+      to: (context) => context.parsedUrl.path
+    }
+  ]
+}));
 
-  Food.findOne({ name: name })
-    .then((foundFood) => {
-      if (!foundFood) {
-        food.save();
-      }
-    });
-});
+app.use(webpackDevMiddleware(compiler, {
+  publicPath: webpackConfig.output.publicPath
+}));
 
-app.post("/physical-data", (req, res) => {
-  const { userName, height, weight, age, gender, activityLevel } = req.body;
+app.use(webpackHotMiddleware(compiler, {}));
 
-  const filter = { userName: userName };
-
-  const update = { $set: { height: height, weight: weight, age: age, gender: gender, activityLevel: activityLevel } };
-
-  User.updateOne(filter, update)
-    .then(res => console.log(res));
-});
-
-app.delete("/food", (req, res) => {
-  const { name } = req.body;
-  console.log(name);
-
-  Food.findOneAndDelete({ name: name })
-    .then(deletedFood => {
-      if (deletedFood) {
-        console.log("Food was deleted successfully");
-        res.status(200).json({ message: "Food deleted successfully", deletedFood });
-      } else {
-        console.log("Food was not deleted");
-        res.status(404).json({ message: "Food item not found" });
-      }
-    })
-    .catch(err => {
-      console.log(err);
-      res.status(500).json({ message: "Error deleting food item" });
-    });
-});
-
-// Add review route
-app.post('/add-review', (req, res) => {
-  const { foodName, userName, rating, comment } = req.body;
-
-  // Validar que los campos necesarios estén presentes
-  if (!foodName || !userName || !rating) {
-    return res.status(400).json({ message: "Missing required fields" });
-  }
-
-  // Buscar la comida en la base de datos
-  Food.findOne({ name: foodName })
-    .then(food => {
-      if (!food) {
-        return res.status(404).json({ message: "Food not found" });
-      }
-
-      // Crear una nueva reseña
-      const newReview = {
-        userName,
-        rating,
-        comment
-      };
-
-      // Agregar la reseña al array de reseñas
-      food.reviews.push(newReview);
-
-      // Guardar los cambios
-      food.save()
-        .then(updatedFood => res.status(200).json({ message: "Review added successfully", food: updatedFood }))
-        .catch(err => res.status(500).json({ message: "Error saving review", error: err }));
-    })
-    .catch(err => res.status(500).json({ message: "Error finding food", error: err }));
-});
-
-// OTHER
-app.get('/food/:name', (req, res) => {
-  const foodName = req.params.name; // Extrae el nombre del alimento de los parámetros
-
-  Food.findOne({ name: foodName }) // Busca el alimento en la base de datos
-      .then(food => {
-          if (!food) {
-              return res.status(404).json({ message: "Food not found" });
-          }
-          res.status(200).json(food); // Devuelve la información del alimento con sus reseñas
-      })
-      .catch(err => res.status(500).json({ message: "Error fetching food", error: err }));
-});
 // Console listening to a port
 app.listen(PORT, HOST, () => {
   console.log(`Server started listening on ${HOST}:${PORT}`);
