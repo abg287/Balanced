@@ -1,22 +1,41 @@
 import requests
 
-API_KEY = 'u1AT3AVGg51R8TweNHSRbfdJbTv5naw9TCofrA7l'  # Replace with your actual API key
+API_KEY = 'yz+zfBqxs9Ah1I+j2H6C9w==xbibi9eg7y7QlKGX'  # Replace with your actual API key
+API_URL = 'https://api.calorieninjas.com/v1/nutrition?query='
 
 def search_food(query):
-    url = f"https://api.nal.usda.gov/fdc/v1/foods/search?api_key={API_KEY}"
-    payload = {
-        "query": query,
-        "pageSize": 5,
-        "dataType": ["Foundation", "Branded"]
-    }
-    response = requests.post(url, json=payload)
-
-    if response.status_code == 200:
+    """
+    Fetch nutrition information for the given food query.
+    
+    Args:
+        query (str): The food query string (e.g., "3lb carrots and a chicken sandwich").
+    
+    Returns:
+        dict: Parsed JSON response with nutrition information if successful.
+        None: If the request fails.
+    """
+    response = requests.get(API_URL + query, headers={'X-Api-Key': API_KEY})
+    
+    if response.status_code == requests.codes.ok:
         return response.json()
     else:
-        print(f"Failed to fetch data: {response.status_code}")
+        print(f"Error: {response.status_code} - {response.text}")
         return None
 
-# Example usage
-result = search_food("Cheddar cheese")
-print(result)
+# Allow user input
+user_input = input("Enter the meal you are eating (e.g., '3lb carrots and a chicken sandwich'): ")
+
+# Fetch and display results
+result = search_food(user_input)
+
+if result:
+    print("Nutrition information:")
+    for item in result.get('items', []):
+        print(f"Food: {item.get('name', 'Unknown')}")
+        print(f"Calories: {item.get('calories', 'N/A')}")
+        print(f"Carbs: {item.get('carbohydrates_total_g', 'N/A')} g")
+        print(f"Protein: {item.get('protein_g', 'N/A')} g")
+        print(f"Fat: {item.get('fat_total_g', 'N/A')} g")
+        print("-" * 30)
+else:
+    print("Failed to retrieve nutrition information.")
