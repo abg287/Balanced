@@ -1,27 +1,37 @@
+// Imports
 import React, { useState, useEffect } from "react";
+import useFetch from "../hooks/useFetch.js";
 
+// Will return a "container" for the header of the website
 export default function PhysicalData() {
-  const [checked, setChecked] = useState(false);
-  const [currentUser, setCurrentUser] = useState({
-    userName: "JohnDoe",
-    weight: 150,
-    height: 68,
-    age: 30,
-    gender: "M",
-    activityLevel: "1",
-  });
 
-  const calculateCalories = (user) => {
+  const users = useFetch( "/api/physical-data" );
+  const [ checked, setChecked ] = useState( false );
+  const [ currentUser, setCurrentUser ] = useState( {} );
+  useEffect(() => {
+    const foundUser = users?.find( user => user.userName === "user" );
+    if ( foundUser ) {
+      setCurrentUser( foundUser );
+    }
+  }, [ users ] );
+  const changeChecked = () => {
+    setChecked( !checked );
+  }
+  const isPositive = number => {
+    return Number( number ) >= 0;
+  }
+  const calculateCalories = ( user ) => {
     let bmr, multiplier;
     const { gender, weight, height, age, activityLevel } = user;
 
-    if (gender === "M") {
-      bmr = 66.47 + 6.24 * weight + 12.7 * height - 6.76 * age;
-    } else {
-      bmr = 655.1 + 4.35 * weight + 4.7 * height - 4.7 * age;
+    if ( gender == "M" ) {
+        bmr = 66.47 + ( 6.24 * weight ) + ( 12.7 * height ) - ( 6.76 * age );
+    }
+    else {
+        bmr = 65.51 + (4.34 * weight) + ( 4.7 * height ) - ( 4.7 * age )
     }
 
-    switch (activityLevel) {
+    switch ( activityLevel ) {
       case "0":
         multiplier = 1.2;
         break;
@@ -37,237 +47,134 @@ export default function PhysicalData() {
       case "4":
         multiplier = 1.9;
         break;
-      default:
-        multiplier = 1.2;
     }
 
-    return Math.round(bmr * multiplier);
-  };
+    return bmr * multiplier;
+  }
+  const userValid = ( user ) => {
+    if ( isPositive( user.weight ) && isPositive( user.height ) ) {
+      return true;
+    }
+    return false;
+  }
 
-  const changeChecked = () => setChecked(!checked);
+  // The submitExp submits the info from the form to the expense array
+  const handleSubmit = ( event ) => {
 
-  const handleChange = (event) => {
-    const { name, value } = event.target;
-    setCurrentUser((prevUser) => ({ ...prevUser, [name]: value }));
-  };
 
-  const handleSubmit = (event) => {
     event.preventDefault();
-    console.log("Data submitted:", currentUser);
-    changeChecked();
-  };
+    // If user filled in required fields
+    if ( userValid( currentUser ) ) {
+      fetch( 'http://localhost:8080/physical-data', {
+        method: "POST",
+        headers: { "Content-type": "application/json" },
+        body: JSON.stringify( currentUser )
+      })
+      .then( res => res.json() )
+      .then( data => setCurrentUser( prevCurrentUser => { return { ...prevCurrentUser, data } } ) );
+      changeChecked();
+    }
 
-  const pageStyle = {
-    fontFamily: "Arial, sans-serif",
-    padding: "20px",
-    maxWidth: "600px",
-    margin: "auto",
-    color: "#333",
-  };
+    // Else
+    else {
+      // Alert user to enter required fields
+     window.alert( "Please correctly enter required fields" );
+    }
 
-  const labelStyle = {
-    fontWeight: "bold",
-    display: "block",
-    marginBottom: "5px",
-  };
+    console.log( currentUser );
+  }
 
-  const inputStyle = {
-    marginBottom: "15px",
-    padding: "10px",
-    width: "100%",
-    border: "1px solid #ccc",
-    borderRadius: "4px",
-    fontSize: "1rem",
-  };
-
-  const buttonStyle = {
-    padding: "10px 20px",
-    fontSize: "1rem",
-    color: "white",
-    backgroundColor: "slateblue",
-    border: "none",
-    borderRadius: "4px",
-    cursor: "pointer",
-  };
-
-  const buttonHoverStyle = {
-    ...buttonStyle,
-    backgroundColor: "darkslateblue",
-  };
-
-  const sectionStyle = {
-    textAlign: "center",
-    marginBottom: "20px",
-  };
+   // The handleChange function gets current input from form
+   const handleChange = ( event ) => {
+    // Get user input
+    const { name, value } = event.target;
+    // return user input
+    setCurrentUser( prevUser => { return { ...prevUser, [ name ]: value } } );
+  }
 
   return (
-    <div style={pageStyle}>
-      {checked ? (
-        <form onSubmit={handleSubmit}>
-          <h1 style={{ textAlign: "center", color: "slateblue" }}>
-            Update your physical metrics, {currentUser.userName}
-          </h1>
+      <div className = "page physical-data">
+          { checked ? ( 
+          <>
+              <h1>Update your physical metrics, { currentUser.userName }</h1>
+              <label htmlFor = "age">Age (years)</label>
+              <input 
+                id="age"
+                name="age"
+                value={ currentUser.age }
+                type="number"
+                onChange={ handleChange }
+                required  
+              />
 
-          <div>
-            <label htmlFor="age" style={labelStyle}>
-              Age (years)
-            </label>
+              <label>Gender:</label>
+              <label htmlFor="male">Male</label>    
+              <input type="radio" onChange={ handleChange } id="male" name="gender" value="M" checked={ currentUser.gender === "M" }></input>
+              
+              
+              <label htmlFor="female">Female</label>
+              <input type="radio" onChange={ handleChange } id="female" name="gender" value="F" checked={ currentUser.gender === "F" }></input>
+              <label>Activity Level:</label>
+              <label htmlFor="0">0 (Sedentary activity, such as little or no exercise or a desk job)</label>    
+              <input type="radio" onChange={ handleChange } id="0" name="activityLevel" value={0} checked={ currentUser.activityLevel == "0" }></input>
+              
+              
+              <label htmlFor="1">1 (Light activity, such as exercise 1–3 days per week)</label>
+              <input type="radio" onChange={ handleChange } id="1" name="activityLevel" value={1} checked={ currentUser.activityLevel == "1" }></input>
+              <label htmlFor="2">2 (Moderate activity, such as exercise 3–5 days per week)</label>    
+              <input type="radio" onChange={ handleChange } id="2" name="activityLevel" value={2} checked={ currentUser.activityLevel == "2" }></input>
+              
+              
+              <label htmlFor="3">3 (Active activity, such as exercise 6–7 days per week)</label>
+              <input type="radio" onChange={ handleChange } id="3" name="activityLevel" value={3} checked={ currentUser.activityLevel == "3" }></input>
+              <label htmlFor="4">4 (Very active activity, such as hard exercise 6–7 days per week or a physical job)</label>    
+              <input type="radio" onChange={ handleChange } id="4" name="activityLevel" value={4} checked={ currentUser.activityLevel == "4" }></input>
+              <label htmlFor = "weight">Weight (lb)</label>
+              <input 
+                id="weight"
+                name="weight"
+                value={ currentUser.weight }
+                type="number"
+                onChange={ handleChange }
+                required  
+              />
+
+              <label htmlFor = "height">Height (in)</label>
+              <input 
+                id="height"
+                name="height"
+                value={ currentUser.height }
+                type="number"
+                onChange={ handleChange }
+                required  
+              />
+              <input
+                type="submit"
+                onClick = { handleSubmit }
+              />
+              <label htmlFor = "update">Press to cancel update:</label>
+              <input
+                id = "update"
+                type="checkbox"
+                defaultChecked = { checked }
+                onClick={ changeChecked }
+              />
+          </>
+          ):(
+          <>
+            <h1>Here are your physical metrics, { currentUser.userName }</h1>
+            <p>Weight (lb): { currentUser.weight }</p>
+            <p>Height (in): { currentUser.height }</p>
+            <p>Caloric Intake: { calculateCalories( currentUser ) }</p>
+            <label htmlFor = "update">Press to update info:</label>
             <input
-              id="age"
-              name="age"
-              value={currentUser.age}
-              type="number"
-              style={inputStyle}
-              onChange={handleChange}
-              required
+                id = "update"
+                type="checkbox"
+                defaultChecked = { checked }
+                onClick={ changeChecked }
             />
-          </div>
-
-          <div>
-            <label style={labelStyle}>Gender:</label>
-            <label>
-              <input
-                type="radio"
-                name="gender"
-                value="M"
-                checked={currentUser.gender === "M"}
-                onChange={handleChange}
-              />
-              Male
-            </label>
-            <label>
-              <input
-                type="radio"
-                name="gender"
-                value="F"
-                checked={currentUser.gender === "F"}
-                onChange={handleChange}
-              />
-              Female
-            </label>
-          </div>
-
-          <div>
-            <label style={labelStyle}>Activity Level:</label>
-            <label>
-              <input
-                type="radio"
-                name="activityLevel"
-                value="0"
-                checked={currentUser.activityLevel === "0"}
-                onChange={handleChange}
-              />
-              0 - Sedentary
-            </label>
-            <label>
-              <input
-                type="radio"
-                name="activityLevel"
-                value="1"
-                checked={currentUser.activityLevel === "1"}
-                onChange={handleChange}
-              />
-              1 - Light Activity
-            </label>
-            <label>
-              <input
-                type="radio"
-                name="activityLevel"
-                value="2"
-                checked={currentUser.activityLevel === "2"}
-                onChange={handleChange}
-              />
-              2 - Moderate Activity
-            </label>
-            <label>
-              <input
-                type="radio"
-                name="activityLevel"
-                value="3"
-                checked={currentUser.activityLevel === "3"}
-                onChange={handleChange}
-              />
-              3 - Active
-            </label>
-            <label>
-              <input
-                type="radio"
-                name="activityLevel"
-                value="4"
-                checked={currentUser.activityLevel === "4"}
-                onChange={handleChange}
-              />
-              4 - Very Active
-            </label>
-          </div>
-
-          <div>
-            <label htmlFor="weight" style={labelStyle}>
-              Weight (lb)
-            </label>
-            <input
-              id="weight"
-              name="weight"
-              value={currentUser.weight}
-              type="number"
-              style={inputStyle}
-              onChange={handleChange}
-              required
-            />
-          </div>
-
-          <div>
-            <label htmlFor="height" style={labelStyle}>
-              Height (in)
-            </label>
-            <input
-              id="height"
-              name="height"
-              value={currentUser.height}
-              type="number"
-              style={inputStyle}
-              onChange={handleChange}
-              required
-            />
-          </div>
-
-          <button
-            type="submit"
-            style={buttonStyle}
-            onMouseOver={(e) => (e.target.style.backgroundColor = "darkslateblue")}
-            onMouseOut={(e) => (e.target.style.backgroundColor = "slateblue")}
-          >
-            Submit
-          </button>
-          <div>
-            <label htmlFor="update" style={labelStyle}>
-              Cancel update:
-            </label>
-            <input
-              id="update"
-              type="checkbox"
-              checked={checked}
-              onChange={changeChecked}
-            />
-          </div>
-        </form>
-      ) : (
-        <section style={sectionStyle}>
-          <h1>Your Physical Metrics, {currentUser.userName}</h1>
-          <p>Weight (lb): {currentUser.weight}</p>
-          <p>Height (in): {currentUser.height}</p>
-          <p>Caloric Intake: {calculateCalories(currentUser)}</p>
-          <label htmlFor="update" style={labelStyle}>
-            Update info:
-          </label>
-          <input
-            id="update"
-            type="checkbox"
-            checked={checked}
-            onChange={changeChecked}
-          />
-        </section>
-      )}
-    </div>
+          </>
+          )}
+      </div>
   );
 }

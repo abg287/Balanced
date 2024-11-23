@@ -3,13 +3,11 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  mode: 'development', // Configura el modo a 'development' para depuración
-  target: 'web',       // Objetivo para Web (navegadores)
-  
+  mode: 'development', 
+  target: 'web',  
   entry: {
-    main: ['webpack-hot-middleware/client?reload=true&timeout=2000', './src/client/index.jsx']
+    main: ['./src/client/index.jsx']
   },
-  
   output: {
     path: path.resolve(__dirname, './dist'),
     publicPath: '/',
@@ -20,18 +18,18 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: './src/client/public/index.html',
     }),
-    new webpack.EnvironmentPlugin({
-      NODE_ENV: 'development',   // Valor predeterminado
-      SERVER_HOST: 'localhost',  // Valor predeterminado
-      SERVER_PORT: 8080          // Valor predeterminado
-    }),
-    new webpack.HotModuleReplacementPlugin(), // Para soporte de HMR
+    new webpack.EnvironmentPlugin([
+      'NODE_ENV',
+      'SERVER_HOST',
+      'SERVER_PORT',  
+    ]),
+    new webpack.HotModuleReplacementPlugin(), 
   ],
 
   module: {
     rules: [
       {
-        test: /\.(js|jsx)$/, // Archivos .js y .jsx
+        test: /.(js|jsx)$/, // Archivos .js y .jsx
         exclude: /node_modules/, // Excluir node_modules
         use: {
           loader: 'babel-loader',
