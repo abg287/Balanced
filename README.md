@@ -27,7 +27,7 @@ to get the folder.
 3. After getting the "node_modules" folder, run
 
 ~~~
-npm start
+npm run dev
 ~~~
 
 to start the 
