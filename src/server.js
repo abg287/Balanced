@@ -83,6 +83,17 @@ ApiRouter.get('/home', (req, res) => {
     .then(foods => res.json(foods));
 });
 
+app.post( "/physical-data", ( req, res ) => {
+  const { userName, height, weight, age, gender, activityLevel } = req.body;
+
+  const filter = { userName: userName }
+
+  const update = { $set: { height: height, weight: weight, age: age, gender: gender, activityLevel: activityLevel } }
+
+  User.updateOne( filter, update )
+  .then( res => console.log( res ) );
+});
+
 ApiRouter.get('/add-food', (req, res) => {
   return res.json({ message: 'Add Food Page' });
 });
@@ -115,6 +126,28 @@ app.use(webpackDevMiddleware(compiler, {
 }));
 
 app.use(webpackHotMiddleware(compiler, {}));
+
+app.delete( "/food", ( req, res ) => {
+  const { name } = req.body;
+  console.log( name );
+
+  Food.findOneAndDelete( { name: name } )
+  .then( deletedFood => {
+    if ( deletedFood ) {
+      console.log( "Food was deleted successfully" );
+      res.status(200).json({ message: "Food deleted successfully", deletedFood });
+    }
+
+    else {
+      console.log( "Food was not deleted" );
+      res.status(404).json({ message: "Food item not found" });
+    }
+  })
+  .catch( err => {
+    console.log( err );
+    res.status(500).json({ message: "Error deleting food item" });
+  });
+});
 
 // Console listening to a port
 app.listen(PORT, HOST, () => {
