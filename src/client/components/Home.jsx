@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import useFetch from '../hooks/useFetch.js';
 import Food from "./Food.jsx";
+import MealPlan from "./MealPlan.jsx";
 
 // Will return a "container" for the header of the website
 export default function Home() {
@@ -31,7 +32,7 @@ export default function Home() {
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify( { name: foodToDelete.name } )
             });
-
+            
             if ( response.ok ) {
                 const filteredFoods = foods.filter( ( food, index ) => index !== idx );
 
@@ -46,9 +47,9 @@ export default function Home() {
         catch ( error ) {
             console.error( "Error deleting food item: ", error );
         }
-
+        
     }  
-
+    
     return (
             <div id = "HomeApp">
                 <p id = "HomeFoodsEaten">Foods Eaten</p>
@@ -68,6 +69,9 @@ export default function Home() {
                         />
                     );
                 })}
+                <MealPlan 
+                    foods = { foods }
+                />
             </div>
     );
 }
