@@ -57,18 +57,22 @@ export default function AddFood() {
     let isValid = true;
     Object.keys( food ).forEach( ( fact ) => {
 
-      if ( fact === "name" && isEmpty( food[ fact ] ) )
-      {
+      if ( fact === "name" && isEmpty( food[ fact ] ) ) {
         isValid = false;
       }
 
-      else if ( fact != "name" && fact != "vitaminA" && fact != "vitaminC" && fact != "calcium" && fact != "iron" && !isPositive( food[ fact ] ) ) {
-         isValid = false;
-      }
+      else if ( ( fact === "protein" || fact === "calories" || fact === "totalFat" || fact === "totalCarbs" || fact === "sugars" ) && !isPositive( food[ fact ] ) ) {
 
-      else if ( ( fact === "vitaminA" || fact === "vitaminC" || fact === "calcium" || fact === "iron" ) && !inBetween( food[ fact ], 0, 100 ) ) {
         isValid = false;
       }
+
+      // else if ( fact != "name" && fact != "vitaminA" && fact != "vitaminC" && fact != "calcium" && fact != "iron" && !isPositive( food[ fact ] ) ) {
+      //    isValid = false;
+      // }
+
+      // else if ( ( fact === "vitaminA" || fact === "vitaminC" || fact === "calcium" || fact === "iron" ) && !inBetween( food[ fact ], 0, 100 ) ) {
+      //   isValid = false;
+      // }
     });
     return isValid;
   }
@@ -156,24 +160,23 @@ export default function AddFood() {
         />
 
 
-        <label htmlFor="expand">Expand additional fields</label>
+        {/* <label htmlFor="expand">Expand additional fields</label>
         <input
           id="expand"
           name="expand"
           type="checkbox"
           onChange={changeExpand}
-        />
+        /> */}
 
-        {isExpanded && ( <label htmlFor="total-fat">Total Fat (g)</label> ) }
-        {isExpanded && (
+        <label htmlFor="total-fat">Total Fat (g)</label>
         <input
           id="total-fat"
           name="totalFat"
           value={food.totalFat}
           type="number"
           onChange={ handleChange }
+          required
         />
-        )}
 {/* 
         {isExpanded && ( <label for="saturated-fat">Saturated Fat (g)</label> ) }
         {isExpanded && (
@@ -252,16 +255,15 @@ export default function AddFood() {
         />
         )}
 */}
-        {isExpanded && ( <label htmlFor="total-carbs">Total Carbs (g)</label> ) }     
-        {isExpanded && (
+        <label htmlFor="total-carbs">Total Carbs (g)</label> 
         <input
           id="total-carbs"
           name="totalCarbs"
           value={food.totalCarbs}
           type="number"
           onChange={ handleChange }
+          required
         />
-        )}
 {/*  
         {isExpanded && ( <label for="dietary-fiber">Dietary Fiber (g)</label> ) }
         {isExpanded && (
@@ -274,27 +276,25 @@ export default function AddFood() {
         />
         )}
 */}
-        {isExpanded && ( <label htmlFor="sugars">Sugars (g)</label> ) }
-        {isExpanded && (
+        <label htmlFor="sugars">Sugars (g)</label>
         <input
           id="sugars"
           name="sugars"
           value={food.sugars}
           type="number"
           onChange={ handleChange }
+          required
         />
-        )}
 
-        {isExpanded && ( <label htmlFor="protein">Protein (g)</label> ) }
-        {isExpanded && (
+        <label htmlFor="protein">Protein (g)</label>
         <input
           id="protein"
           name="protein"
           value={food.protein}
           type="number"
           onChange={ handleChange }
+          required
         />
-        )}
 {/*  
         {isExpanded && ( <label for="vitamin-a">Vitamin A (%)</label> ) }
         {isExpanded && (
