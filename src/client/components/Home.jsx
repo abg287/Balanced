@@ -65,6 +65,7 @@ export default function Home() {
                             totalCarbs = { food.totalCarbs }
                             protein = { food.protein }
                             sugars = { food.sugars }
+                            review = { food.review }
                             deleteFood = { deleteFood }
                         />
                     );

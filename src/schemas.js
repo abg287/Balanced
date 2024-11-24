@@ -1,3 +1,9 @@
+export const reviewsSchema = {
+    userName: String,
+    rating: Number,
+    comment: String
+}
+
 export const foodsSchema = {
     name: String,
     calories: Number,
@@ -17,14 +23,7 @@ export const foodsSchema = {
     vitaminC: Number,
     calcium: Number,
     iron: Number,
-    reviews: [
-        {
-            userName: String,
-            rating: Number, // Calificación de la comida
-            comment: String, // Comentario del usuario
-            createdAt: { type: Date, default: Date.now } // Fecha de la reseña
-        }
-    ]
+    review: reviewsSchema
 };
 
 export const usersSchema = {
