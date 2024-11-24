@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import useFetch from '../hooks/useFetch.js';
 import Food from "./Food.jsx";
+import MealPlan from "./MealPlan.jsx";
 
 // Will return a "container" for the header of the website
 export default function Home() {
@@ -68,6 +69,9 @@ export default function Home() {
                         />
                     );
                 })}
+                <MealPlan 
+                    foods = { foods }
+                />
             </div>
     );
 }
