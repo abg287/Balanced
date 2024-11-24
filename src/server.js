@@ -94,6 +94,37 @@ app.post( "/physical-data", ( req, res ) => {
   .then( res => console.log( res ) );
 });
 
+app.post( "/add-food", ( req, res ) => {
+  const { name, calories, totalFat, saturatedFat, polyunsaturatedFat, monounsaturatedFat, transFat, cholesterol, sodium, potassium, totalCarbs, dietaryFiber, sugars, protein, vitaminA, vitaminC, calcium, iron } = req.body;
+  const food = new Food({
+    name: name,
+    calories: calories,
+    totalFat: totalFat,
+    saturatedFat: saturatedFat,
+    polyunsaturatedFat: polyunsaturatedFat,
+    monounsaturatedFat: monounsaturatedFat,
+    transFat: transFat,
+    cholestorol: cholesterol,
+    sodium: sodium,
+    potassium: potassium,
+    totalCarbs: totalCarbs,
+    dietaryFiber: dietaryFiber,
+    sugars: sugars,
+    protein: protein,
+    vitaminA: vitaminA,
+    vitaminC: vitaminC,
+    calcium: calcium,
+    iron: iron
+  })
+
+  Food.findOne( { name: name } )
+    .then( ( foundFood ) => {
+      if ( !foundFood ) {
+        food.save();
+      }
+    })
+});
+
 ApiRouter.get('/add-food', (req, res) => {
   return res.json({ message: 'Add Food Page' });
 });
