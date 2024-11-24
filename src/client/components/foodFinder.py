@@ -1,12 +1,48 @@
 import requests
-from collections import deque
 
+# API Configuration
 API_KEY = 'yz+zfBqxs9Ah1I+j2H6C9w==xbibi9eg7y7QlKGX'  # Replace with your actual API key
 API_URL = 'https://api.calorieninjas.com/v1/nutrition?query='
-MAX_RECENT_QUERIES = 10
 
-# In-memory storage for recent queries
-recent_queries = deque(maxlen=MAX_RECENT_QUERIES)
+# In-Memory Data Storage
+nutrition_data = []
+
+def save_to_data_structure(query, results):
+    """
+    Save the query and its nutrition results to the in-memory data structure.
+
+    Args:
+        query (str): The user's query.
+        results (list): List of food item data dictionaries.
+    """
+    for item in results:
+        nutrition_data.append({
+            "query": query,
+            "food_name": item.get('name', 'Unknown'),
+            "calories": item.get('calories', None),
+            "carbohydrates": item.get('carbohydrates_total_g', None),
+            "protein": item.get('protein_g', None),
+            "fat": item.get('fat_total_g', None),
+            "sugars": item.get('sugar_g', None)
+        })
+
+def display_recent_data():
+    """
+    Display the most recent 10 entries in the in-memory data structure.
+    """
+    if nutrition_data:
+        print("\nRecent Entries:")
+        for entry in nutrition_data[-10:]:
+            print(f"Query: {entry['query']}")
+            print(f"  Food: {entry['food_name']}")
+            print(f"  Calories: {entry['calories']}")
+            print(f"  Carbs: {entry['carbohydrates']} g")
+            print(f"  Protein: {entry['protein']} g")
+            print(f"  Fat: {entry['fat']} g")
+            print(f"  Sugars: {entry['sugars']} g")
+            print("-" * 30)
+    else:
+        print("No recent entries found.")
 
 def search_food(query):
     """
@@ -27,26 +63,6 @@ def search_food(query):
         print(f"Error: {response.status_code} - {response.text}")
         return None
 
-def save_query(query):
-    """
-    Save the user's query in memory.
-
-    Args: 
-        query (str): The user's query to save.
-    """
-    recent_queries.append(query)
-
-def display_recent_queries():
-    """
-    Display the last 10 user queries stored in memory.
-    """
-    if recent_queries:
-        print("\nRecent Queries:")
-        for i, q in enumerate(recent_queries, 1):
-            print(f"{i}. {q}")
-    else:
-        print("\nNo recent queries found.")
-
 # Main loop
 while True:
     # Allow user input
@@ -60,16 +76,20 @@ while True:
 
     if result:
         print("\nNutrition information:")
-        for item in result.get('items', []):
+        items = result.get('items', [])
+        for item in items:
             print(f"Food: {item.get('name', 'Unknown')}")
             print(f"Calories: {item.get('calories', 'N/A')}")
             print(f"Carbs: {item.get('carbohydrates_total_g', 'N/A')} g")
             print(f"Protein: {item.get('protein_g', 'N/A')} g")
             print(f"Fat: {item.get('fat_total_g', 'N/A')} g")
+            print(f"Sugars: {item.get('sugar_g', 'N/A')} g")
             print("-" * 30)
-        save_query(user_input)
+
+        # Save query and results to the in-memory data structure
+        save_to_data_structure(user_input, items)
     else:
         print("Failed to retrieve nutrition information.")
 
-    # Display recent queries
-    display_recent_queries()
+    # Display recent entries from the in-memory data structure
+    display_recent_data()
