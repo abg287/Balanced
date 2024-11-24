@@ -95,7 +95,7 @@ app.post( "/physical-data", ( req, res ) => {
 });
 
 app.post( "/add-food", ( req, res ) => {
-  const { name, calories, totalFat, saturatedFat, polyunsaturatedFat, monounsaturatedFat, transFat, cholesterol, sodium, potassium, totalCarbs, dietaryFiber, sugars, protein, vitaminA, vitaminC, calcium, iron } = req.body;
+  const { name, calories, totalFat, saturatedFat, polyunsaturatedFat, monounsaturatedFat, transFat, cholesterol, sodium, potassium, totalCarbs, dietaryFiber, sugars, protein, vitaminA, vitaminC, calcium, iron, review } = req.body;
   const food = new Food({
     name: name,
     calories: calories,
@@ -114,7 +114,12 @@ app.post( "/add-food", ( req, res ) => {
     vitaminA: vitaminA,
     vitaminC: vitaminC,
     calcium: calcium,
-    iron: iron
+    iron: iron,
+    review: {
+      userName: review.userName,
+      rating: review.rating,
+      comment: review.comment
+    }
   })
 
   Food.findOne( { name: name } )
