@@ -359,3 +359,38 @@ input[type="submit"]:hover {
   align-items: center;
   gap: 0.5rem;
 }
+
+/* Recommendations.jsx ids */
+#RecommendDiv{
+  text-align: center;
+}
+#RecommendBox{
+  height: 500px;
+  margin: 5% 10%;
+  background-color: gray;
+  border-radius: 25px;
+  outline-color: darkgreen;
+  outline-width: medium;
+  outline-style: solid;
+  padding: 5px;
+  display: grid;
+  grid-template-columns: 33% 33% 33%;
+  
+}
+#FoodRecommendation{
+  background-color: white;
+  margin: 10%;
+  padding: 10%;
+  text-align: center;
+  border-radius: 5px;
+  outline-color:#333;
+  outline-width: medium;
+  outline-style: solid;
+}
+#TextRecommend{
+  font-size: x-large;
+  margin: 5%;
+}
+
+
+
