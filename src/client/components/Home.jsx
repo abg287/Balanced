@@ -2,6 +2,8 @@
 import { useState, useEffect } from "react";
 import useFetch from '../hooks/useFetch.js';
 import Food from "./Food.jsx";
+import MealPlan from "./MealPlan.jsx";
+import { days } from "../../days.js";
 
 // Will return a "container" for the header of the website
 export default function Home() {
@@ -13,14 +15,18 @@ export default function Home() {
         }
     }, [ data ] );
 
-    console.log( foods );
+    const [checked, setChecked] = useState( false );
+
+    const changeChecked = () => {
+        setChecked( !checked );
+      }
 
     let caloriesSum = 0;
 
     foods?.map( ( food ) => {
         caloriesSum += food.calories;
     });
-
+ 
     const deleteFood = async ( idx ) => {
 
         const foodToDelete = foods[ idx ];
@@ -64,10 +70,37 @@ export default function Home() {
                             totalCarbs = { food.totalCarbs }
                             protein = { food.protein }
                             sugars = { food.sugars }
+                            review = { food.review }
                             deleteFood = { deleteFood }
                         />
                     );
                 })}
+
+                { !checked ?
+                    <MealPlan 
+                        foods = { foods }
+                    /> 
+                    : ( [...Array(7)].map((_, i) => {
+
+                        return (
+                            <>
+                                <h2>{days[i]}</h2>
+                                <MealPlan 
+                                    foods = { foods }
+                                />
+                            </>
+                        )
+                    }))
+                }
+
+                <label htmlFor = "update">Press to display weekly meal plan:</label>
+                <input
+                    id = "update"
+                    type="checkbox"
+                    defaultChecked = { checked }
+                    onClick={ changeChecked }
+                />
+                
             </div>
     );
 }
