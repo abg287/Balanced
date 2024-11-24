@@ -33,11 +33,8 @@ export default function Recommendations() {
   const getReccommendations = (foodTable, nutrientString) => {
     var nutrientValue
     const resultTable = [0, 0, 0]
-    console.log(nutrientString)
     // Loop through each food in the table
     for (let key in foodTable) {
-      console.log(foodTable[key])
-      console.log(foodTable[key][nutrientString])
       // Get the nutrient value
       nutrientValue = foodTable[key][nutrientString]
       // If nutrient is higher than the first
@@ -48,13 +45,16 @@ export default function Recommendations() {
         // Overwrite
         resultTable[0] = foodTable[key]
       }
+      // Or Higher than the second
       else if (resultTable[1] == 0 || resultTable[1][nutrientString] < nutrientValue) {
         // Move result down
         resultTable[2] = resultTable[1]
         // Overwrite
         resultTable[1] = foodTable[key]
       }
+      // Or higher than the third
       else if (resultTable[2] == 0 || resultTable[2][nutrientString] < nutrientValue) {
+        // Overwrite
         resultTable[2] = foodTable[key]
       }
     }
@@ -62,10 +62,37 @@ export default function Recommendations() {
     return resultTable
   }
 
+  // Helper for the function below
+  const creationHelper = (foodItem) => {
+    return (
+      <>
+      <div id="FoodRecommendation"> {/* TEMPORARY*/}
+            <p id="FoodName">{foodItem["name"]}</p>
+            <p id="FoodCalories">{foodItem["calories"]} Calories</p>
+            <p className="FoodNutrients">Total Fat: {foodItem["totalFat"]} grams</p>
+            <p className="FoodNutrients">Total Carbs: {foodItem["totalCarbs"]} grams</p>
+            <p className="FoodNutrients">Protein: {foodItem["protein"]} grams</p>
+            <p className="FoodNutrients">Sugars: {foodItem["sugars"]} grams</p>
+          </div>
+      </>
+    )
+  }
+
+  // Given the food recommendations return a container with the HTML for the three items
+  const createHTML = (reccTable) => {
+    return (
+      <>
+        {creationHelper(reccTable[0])}
+        {creationHelper(reccTable[1])}
+        {creationHelper(reccTable[2])}
+      </>
+    )
+  }
+
   // Get the missing nutrient
   const missingNutrient = findMissingNutrients()
 
-  // Get the foods
+  // Get the foods data from server
   const data = useFetch("/api/home");
   const [foods, setFoods] = useState([]);
   useEffect(() => {
@@ -89,33 +116,7 @@ export default function Recommendations() {
         <p>Based on your past diet, we recommend...</p>
         <p id="TextRecommend">Try to consume more {missingNutrient}</p>
         <div id="RecommendBox">
-          <div id="FoodRecommendation"> {/* TEMPORARY*/}
-            <p id="FoodName">Food Name</p>
-            <p id="FoodCalories">X Calories</p>
-            <p className="FoodNutrients">Total Fat: X grams</p>
-            <p className="FoodNutrients">Total Carbs: X grams</p>
-            <p className="FoodNutrients">Protein: X grams</p>
-            <p className="FoodNutrients">Sugars: X grams</p>
-          </div>
-
-
-
-          <div id="FoodRecommendation"> {/* TEMPORARY*/}
-            <p id="FoodName">Food Name</p>
-            <p id="FoodCalories">X Calories</p>
-            <p className="FoodNutrients">Total Fat: X grams</p>
-            <p className="FoodNutrients">Total Carbs: X grams</p>
-            <p className="FoodNutrients">Protein: X grams</p>
-            <p className="FoodNutrients">Sugars: X grams</p>
-          </div>
-          <div id="FoodRecommendation"> {/* TEMPORARY*/}
-            <p id="FoodName">Food Name</p>
-            <p id="FoodCalories">X Calories</p>
-            <p className="FoodNutrients">Total Fat: X grams</p>
-            <p className="FoodNutrients">Total Carbs: X grams</p>
-            <p className="FoodNutrients">Protein: X grams</p>
-            <p className="FoodNutrients">Sugars: X grams</p>
-          </div>
+          {createHTML(recommendations)}
         </div>
       </div>
     </>
