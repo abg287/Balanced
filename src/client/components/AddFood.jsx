@@ -4,7 +4,8 @@ import React, {useState, useEffect} from 'react';
 
 // Will return a "container" for the header of the website
 export default function AddFood() {
-  const [ isExpanded, setExpanded ] = useState( false );
+
+  const [isChecked, setIsChecked] = useState( false );
 
   const [ food, setFood ] = useState({
     name: "",
@@ -24,20 +25,43 @@ export default function AddFood() {
     vitaminA: "",
     vitaminC: "",
     calcium: "",
-    iron: ""
+    iron: "",
+    review: {
+      userName: "user",
+      rating: "",
+      comment: ""
+    }
   }); 
 
   // The handleChange function gets current input from form
   const handleChange = ( event ) => {
     // Get user input
     const { name, value } = event.target;
-    // return user input
-    setFood( prevFood => { return { ...prevFood, [ name ]: value } } );
+
+    console.log( name );
+
+    if (name === "rating" || name === "comment") {
+      // Update nested review object
+      setFood( prevFood => { 
+        return {
+          ...prevFood,
+          review: {
+            ...prevFood.review,
+            [name]: value,
+          },
+        };
+      })
+    }
+
+    else {
+      // return user input
+      setFood( prevFood => { return { ...prevFood, [ name ]: value } } );
+    }
   }
 
   // The expand function sets isExpanded to true
-  const changeExpand = () => {
-    setExpanded( !isExpanded );
+  const changeChecked = () => {
+    setIsChecked( !isChecked );
   }
 
   const isEmpty = str => {
@@ -57,18 +81,28 @@ export default function AddFood() {
     let isValid = true;
     Object.keys( food ).forEach( ( fact ) => {
 
-      if ( fact === "name" && isEmpty( food[ fact ] ) )
-      {
+      if ( fact === "name" && isEmpty( food[ fact ] ) ) {
         isValid = false;
       }
 
-      else if ( fact != "name" && fact != "vitaminA" && fact != "vitaminC" && fact != "calcium" && fact != "iron" && !isPositive( food[ fact ] ) ) {
-         isValid = false;
-      }
+      else if ( ( fact === "protein" || fact === "calories" || fact === "totalFat" || fact === "totalCarbs" || fact === "sugars" ) && !isPositive( food[ fact ] ) ) {
 
-      else if ( ( fact === "vitaminA" || fact === "vitaminC" || fact === "calcium" || fact === "iron" ) && !inBetween( food[ fact ], 0, 100 ) ) {
         isValid = false;
       }
+
+      else if ( fact === "review" && isChecked ) {
+        if ( !inBetween( food[ fact ].rating, 1, 10 ) || isEmpty( food[ fact ].comment ) ) {
+          isValid= false;
+        }
+      }
+
+      // else if ( fact != "name" && fact != "vitaminA" && fact != "vitaminC" && fact != "calcium" && fact != "iron" && !isPositive( food[ fact ] ) ) {
+      //    isValid = false;
+      // }
+
+      // else if ( ( fact === "vitaminA" || fact === "vitaminC" || fact === "calcium" || fact === "iron" ) && !inBetween( food[ fact ], 0, 100 ) ) {
+      //   isValid = false;
+      // }
     });
     return isValid;
   }
@@ -81,6 +115,8 @@ export default function AddFood() {
     // If user filled in required fields
     if ( foodFactsValid( food ) ) {
       // const { totalFat, saturatedFat, polyunsaturatedFat, monounsaturatedFat, transFat, cholesterol, sodium, potassium, totalCarbs, dietaryFiber, sugars, protein, vitaminA, vitaminC, calcium, iron } = food;
+
+      console.log( food );
 
       Object.keys( food ).forEach( ( fact ) => {
         if ( fact != "name" && fact != "calories" )
@@ -119,7 +155,12 @@ export default function AddFood() {
           vitaminA: "",
           vitaminC: "",
           calcium: "",
-          iron: ""
+          iron: "",
+          review: {
+            userName: "user",
+            rating: "",
+            comment: ""
+          }
         }
       });
       
@@ -156,24 +197,23 @@ export default function AddFood() {
         />
 
 
-        <label htmlFor="expand">Expand additional fields</label>
+        {/* <label htmlFor="expand">Expand additional fields</label>
         <input
           id="expand"
           name="expand"
           type="checkbox"
           onChange={changeExpand}
-        />
+        /> */}
 
-        {isExpanded && ( <label htmlFor="total-fat">Total Fat (g)</label> ) }
-        {isExpanded && (
+        <label htmlFor="total-fat">Total Fat (g)</label>
         <input
           id="total-fat"
           name="totalFat"
           value={food.totalFat}
           type="number"
           onChange={ handleChange }
+          required
         />
-        )}
 {/* 
         {isExpanded && ( <label for="saturated-fat">Saturated Fat (g)</label> ) }
         {isExpanded && (
@@ -252,16 +292,15 @@ export default function AddFood() {
         />
         )}
 */}
-        {isExpanded && ( <label htmlFor="total-carbs">Total Carbs (g)</label> ) }     
-        {isExpanded && (
+        <label htmlFor="total-carbs">Total Carbs (g)</label> 
         <input
           id="total-carbs"
           name="totalCarbs"
           value={food.totalCarbs}
           type="number"
           onChange={ handleChange }
+          required
         />
-        )}
 {/*  
         {isExpanded && ( <label for="dietary-fiber">Dietary Fiber (g)</label> ) }
         {isExpanded && (
@@ -274,27 +313,25 @@ export default function AddFood() {
         />
         )}
 */}
-        {isExpanded && ( <label htmlFor="sugars">Sugars (g)</label> ) }
-        {isExpanded && (
+        <label htmlFor="sugars">Sugars (g)</label>
         <input
           id="sugars"
           name="sugars"
           value={food.sugars}
           type="number"
           onChange={ handleChange }
+          required
         />
-        )}
 
-        {isExpanded && ( <label htmlFor="protein">Protein (g)</label> ) }
-        {isExpanded && (
+        <label htmlFor="protein">Protein (g)</label>
         <input
           id="protein"
           name="protein"
           value={food.protein}
           type="number"
           onChange={ handleChange }
+          required
         />
-        )}
 {/*  
         {isExpanded && ( <label for="vitamin-a">Vitamin A (%)</label> ) }
         {isExpanded && (
@@ -340,6 +377,36 @@ export default function AddFood() {
         />
         )}
 */}
+
+        <label htmlFor = "update">Press to add review:</label>
+        <input
+          id = "update"
+          type="checkbox"
+          defaultChecked = { isChecked }
+          onClick={ changeChecked }        
+        />
+
+        { !isChecked ? <></> : (
+          <>
+            <label htmlFor = "rating">Enter rating (1-10)</label>
+            <input
+              id = "rating"
+              name = "rating"
+              value = {food.review.rating}
+              type="number"
+              onChange={ handleChange }
+            />
+
+            <label htmlFor = "comment">Write your review</label>
+            <input
+              id = "comment"
+              name= "comment"
+              value = {food.review.comment}
+              type="text"
+              onChange={ handleChange }
+            />
+          </>
+        )}
 
         <input
           type="submit"

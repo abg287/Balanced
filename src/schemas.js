@@ -1,3 +1,9 @@
+export const reviewsSchema = {
+    userName: String,
+    rating: Number,
+    comment: String
+}
+
 export const foodsSchema = {
     name: String,
     calories: Number,
@@ -16,7 +22,8 @@ export const foodsSchema = {
     vitaminA: Number,
     vitaminC: Number,
     calcium: Number,
-    iron: Number
+    iron: Number,
+    review: reviewsSchema
 };
 
 export const usersSchema = {
@@ -27,4 +34,4 @@ export const usersSchema = {
     activityLevel: String,
     weight: Number,
     height: Number
-}
+};

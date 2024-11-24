@@ -75,7 +75,6 @@ export default function Home() {
                         />
                     );
                 })}
-
                 { !checked ?
                     <MealPlan 
                         foods = { foods }
@@ -100,7 +99,10 @@ export default function Home() {
                     defaultChecked = { checked }
                     onClick={ changeChecked }
                 />
-                
+               
+                <MealPlan 
+                    foods = { foods }
+                />
             </div>
     );
 }
