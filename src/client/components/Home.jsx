@@ -99,10 +99,6 @@ export default function Home() {
                     defaultChecked = { checked }
                     onClick={ changeChecked }
                 />
-               
-                <MealPlan 
-                    foods = { foods }
-                />
             </div>
     );
 }
