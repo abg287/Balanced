@@ -7,7 +7,7 @@ Thumbs.db
 # Ignore node modules (for Node.js projects)
 node_modules/
 
-.env
+# .env
 
 
 
